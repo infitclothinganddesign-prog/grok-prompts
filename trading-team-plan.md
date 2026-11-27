@@ -32,6 +32,21 @@ Then answer the 3 decisions in "Decisions I need from you" below. Nothing is bui
 
 **What this means for $10:** if IC Markets has no cent account, then 1% of $10 = $0.10 risk, and 0.01 lot is about $0.10 per pip (my estimate). That allows a **1-pip stop**, which is not realistic on 15-minute swing trades. **Option B (real money at $10) is therefore likely not workable at IC Markets.** Paper trading (Option A) on a virtual balance is the only responsible path now.
 
+
+## 2b. UPDATE: MT5 build, $1,000 paper balance
+
+**Confirmed by you:** IC Markets demo account is ready; paper balance is $1,000 virtual; the bot is for **MT5** (replaces the cTrader path in section 2).
+
+**What MT5 changes (from my general knowledge, to be verified against MetaQuotes and IC Markets docs before building):**
+- MT5's Python connection only runs on **Windows**, with the MT5 terminal open and logged in. A bot that runs 24/7 therefore needs an always-on **Windows computer or Windows VPS** (my cost estimate: roughly $10 to $30 a month, unverified).
+- Scout and Lab read candles from the MT5 terminal itself, so no TradingView plan is needed for data. TradingView alerts become optional.
+- Pilot sends orders to MT5 using the **demo** login only. Shield's checks and the "go live" rule are unchanged.
+- Your MT5 password is typed only into the MT5 terminal on that Windows machine, never in chat or in code.
+
+**Shield defaults in use until you change them:** 0.5% risk per trade ($5 on $1,000), 2% daily loss cap ($20), stop after 3 losses in a row, max 2 open trades.
+
+**Still open:** Agenkit is not verified; ICT rule definitions in section 6 are not yet confirmed by you.
+
 ## 3. Decisions I need from you
 
 1. **Agenkit:** send me the exact URL or its documentation. If it can't be confirmed, I'll propose another no-code way to run the same Orient, Brainstorm, Architecture, Build, Review, Ship steps.
