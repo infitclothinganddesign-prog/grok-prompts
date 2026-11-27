@@ -47,6 +47,33 @@ Then answer the 3 decisions in "Decisions I need from you" below. Nothing is bui
 
 **Still open:** Agenkit is not verified; ICT rule definitions in section 6 are not yet confirmed by you.
 
+
+## 2c. UPDATE: Deriv MT5 demo on a Mac (replaces IC Markets and the Windows VPS idea)
+
+**Confirmed by you:** broker is Deriv.com Limited, server Deriv-Demo (MT5), running on your Mac. Run until the loss limit is met or you switch it off.
+
+**What I verified (sources in chat reply):**
+- Deriv's MT5 desktop app exists for macOS and supports Expert Advisors (EAs).
+- The official MetaTrader5 Python package is reported Windows-only, so a Python bot would need a Windows VM on your Mac. Forum evidence only.
+- Deriv's real forex minimum lot on Deriv-Demo is **not confirmed**. Check Market Watch > right-click symbol > Specification.
+
+**Design change:** build the bot as an **MQL5 Expert Advisor inside the MT5 app on your Mac**. No Windows machine, no VPS, no Python bridge.
+
+| Agent | Where it lives in v1 |
+|---|---|
+| Scout | EA code: reads Daily/4H/1H/15M candles from the terminal, applies the written rules |
+| Shield | EA code: hard limits, checked before every order, can switch the EA off |
+| Pilot | EA code: sends demo orders only after your approval click |
+| Lab | MT5 Strategy Tester on Deriv's history (built in). Needs checking that it works on the Mac app. |
+| Journal | EA writes a trade log file; weekly review written from it |
+| Coordinator | Chart panel and MT5 phone notifications (built-in feature, to be verified) for the daily message and Approve/Skip buttons |
+
+**Mac requirement:** the Mac must stay on, awake and online, with MT5 open. Turn off sleep. If the Mac sleeps or loses internet, the bot is blind, and Shield must treat that as a stop.
+
+**Stop rules (confirm):** the bot stops when ANY of these is hit, and only you can restart it: daily loss 2% ($20), 3 losses in a row, **total loss from start 10% ($100)** (new proposal). Or when you switch it off.
+
+**Open checks:** Deriv forex symbols may not be on every Deriv MT5 account type; confirm yours lists forex pairs. Deriv's spreads and costs differ from IC Markets, so Lab must use Deriv's own numbers.
+
 ## 3. Decisions I need from you
 
 1. **Agenkit:** send me the exact URL or its documentation. If it can't be confirmed, I'll propose another no-code way to run the same Orient, Brainstorm, Architecture, Build, Review, Ship steps.
